@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import sleep
 
 # Coordenadas de las ciudades:
@@ -20,7 +20,7 @@ base_url = "https://power.larc.nasa.gov/api/temporal/daily/point"
 params_base = {
     "parameters": "T2M,RH2M,PRECTOTCORR",
     "start": "19840101",
-    "end": datetime.now().strftime("%Y%m%d"),
+    "end": (datetime.now() - timedelta(days=3)).strftime("%Y%m%d"),
     "format": "JSON",
     "community": "AG",
 }
@@ -40,11 +40,11 @@ for city, (lat, lon) in cities.items():
         data = response.json()["properties"]["parameter"]
         fechas = data["T2M"].keys()
         df = pd.DataFrame({
-            "city": city,
-            "date": pd.to_datetime(list(fechas)),
-            "temperature_C": list(data["T2M"].values()),
-            "humidity_%": list(data["RH2M"].values()),
-            "precipitation_mm": list(data["PRECTOTCORR"].values())
+            "Ciudad": city,
+            "Fecha": pd.to_datetime(list(fechas)),
+            "Temperatura (°C)": list(data["T2M"].values()),
+            "Humedad relativa (%)": list(data["RH2M"].values()),
+            "Precipitación (mm)": list(data["PRECTOTCORR"].values())
         })
         all_data.append(df)
     except Exception as e:
@@ -54,4 +54,4 @@ for city, (lat, lon) in cities.items():
 # Guardar en CSV
 df_all = pd.concat(all_data)
 df_all.to_csv("nasa_clima_espana_1984_hoy.csv", index=False)
-print("✅ Datos guardados en 'nasa_clima_espana_1984_hoy.csv'")
+print("Datos guardados en 'nasa_clima_espana_1984_hoy.csv'")
