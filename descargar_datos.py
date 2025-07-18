@@ -2,6 +2,7 @@ import pandas as pd
 import requests
 from datetime import datetime, timedelta
 from time import sleep
+import os
 
 # Coordenadas de las ciudades:
 cities = {
@@ -67,33 +68,57 @@ params_base = {
     "community": "AG",
 }
 
-# Descarga de datos
+# Ruta del archivo CSV
+csv_path = "nasa_clima_espana_1984_hoy.csv"
+
+# Cargar CSV existente si lo hay
+if os.path.exists(csv_path):
+    df_existente = pd.read_csv(csv_path, parse_dates=["Fecha"])
+else:
+    df_existente = pd.DataFrame(columns=["Ciudad", "Fecha", "Temperatura (°C)", "Humedad relativa (%)", "Precipitación (mm)"])
+
+# Descarga selectiva
 all_data = []
 
 for city, (lat, lon) in cities.items():
+    print(f"Procesando {city}...")
+
+    fechas_existentes = set()
+    if not df_existente.empty:
+        fechas_existentes = set(df_existente[df_existente["Ciudad"] == city]["Fecha"].dt.date)
+
     params = params_base.copy()
     params["latitude"] = lat
     params["longitude"] = lon
-    print(f"Descargando datos para {city}...")
 
     try:
         response = requests.get(base_url, params=params)
         response.raise_for_status()
         data = response.json()["properties"]["parameter"]
-        fechas = data["T2M"].keys()
-        df = pd.DataFrame({
-            "Ciudad": city,
-            "Fecha": pd.to_datetime(list(fechas)),
-            "Temperatura (°C)": list(data["T2M"].values()),
-            "Humedad relativa (%)": list(data["RH2M"].values()),
-            "Precipitación (mm)": list(data["PRECTOTCORR"].values())
-        })
-        all_data.append(df)
+        fechas = pd.to_datetime(list(data["T2M"].keys())).date
+        nuevas_fechas = [f for f in fechas if f not in fechas_existentes]
+
+        if nuevas_fechas:
+            df = pd.DataFrame({
+                "Ciudad": city,
+                "Fecha": pd.to_datetime(nuevas_fechas),
+                "Temperatura (°C)": [data["T2M"][str(f)] for f in nuevas_fechas],
+                "Humedad relativa (%)": [data["RH2M"][str(f)] for f in nuevas_fechas],
+                "Precipitación (mm)": [data["PRECTOTCORR"][str(f)] for f in nuevas_fechas]
+            })
+            all_data.append(df)
+            print(f"{len(nuevas_fechas)} fechas nuevas para {city}.")
+        else:
+            print(f"Sin datos nuevos para {city}.")
     except Exception as e:
         print(f"Error en {city}: {e}")
     sleep(1.5)
 
-# Guardar en CSV
-df_all = pd.concat(all_data)
-df_all.to_csv("nasa_clima_espana_1984_hoy.csv", index=False)
-print("Datos guardados en 'nasa_clima_espana_1984_hoy.csv'")
+# Combinar y guardar
+if all_data:
+    df_all = pd.concat([df_existente] + all_data, ignore_index=True)
+else:
+    df_all = df_existente
+
+df_all.to_csv(csv_path, index=False)
+print(f"Datos actualizados guardados en '{csv_path}'")
