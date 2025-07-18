@@ -3,14 +3,56 @@
 Este proyecto muestra un dashboard interactivo con datos climáticos diarios (temperatura, humedad y precipitación) desde 1984 hasta hoy, extraídos en tiempo real de la API NASA POWER, para varias ciudades españolas.
 
 📌 Ciudades incluidas:
-- Madrid
-- Barcelona
-- Valencia
-- Sevilla
-- León
-- Oviedo
+- A Coruña
+- Albacete
+- Alicante
+- Almería
+- Ávila
 - Badajoz
-- Santiago de Compostela
+- Barcelona
+- Bilbao
+- Burgos
+- Cáceres
+- Cádiz
+- Castellón de la Plana
+- Ciudad Real
+- Córdoba
+- Cuenca
+- Girona
+- Granada
+- Guadalajara
+- Huelva
+- Huesca
+- Jaén
+- Las Palmas de Gran Canaria
+- León
+- Lleida
+- Logroño
+- Lugo
+- Madrid
+- Málaga
+- Murcia
+- Ourense
+- Oviedo
+- Palencia
+- Palma
+- Pamplona
+- Santa Cruz de Tenerife
+- Pontevedra
+- Salamanca
+- San Sebastián
+- Santander
+- Segovia
+- Sevilla
+- Soria
+- Tarragona
+- Teruel
+- Toledo
+- Valencia
+- Valladolid
+- Vitoria-Gasteiz
+- Zamora
+- Zaragoza
 
 📊 Variables climáticas:
 - Temperatura media (°C)
