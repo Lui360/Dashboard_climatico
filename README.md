@@ -3,56 +3,20 @@
 Este proyecto muestra un dashboard interactivo con datos climáticos diarios (temperatura, humedad y precipitación) desde 1984 hasta hoy, extraídos en tiempo real de la API NASA POWER, para varias ciudades españolas.
 
 📌 Ciudades incluidas:
-- A Coruña
-- Albacete
-- Alicante
-- Almería
-- Ávila
-- Badajoz
-- Barcelona
-- Bilbao
-- Burgos
-- Cáceres
-- Cádiz
-- Castellón de la Plana
-- Ciudad Real
-- Córdoba
-- Cuenca
-- Girona
-- Granada
-- Guadalajara
-- Huelva
-- Huesca
-- Jaén
-- Las Palmas de Gran Canaria
-- León
-- Lleida
-- Logroño
-- Lugo
-- Madrid
-- Málaga
-- Murcia
-- Ourense
-- Oviedo
-- Palencia
-- Palma
-- Pamplona
-- Santa Cruz de Tenerife
-- Pontevedra
-- Salamanca
-- San Sebastián
-- Santander
-- Segovia
-- Sevilla
-- Soria
-- Tarragona
-- Teruel
-- Toledo
-- Valencia
-- Valladolid
-- Vitoria-Gasteiz
-- Zamora
-- Zaragoza
+|      Ciudad       |      Ciudad       |      Ciudad       |      Ciudad       |
+|:-----------------:|:-----------------:|:-----------------:|:-----------------:|
+| A Coruña          | Alicante          | Ciudad Real       | Córdoba           |
+| Albacete          | Almería           | Cuenca            | Barcelona         |
+| Bilbao            | Girona            | Burgos            | Cáceres           |
+| Granada           | Cádiz             | Castellón de la Plana | Guadalajara     |
+| Jaén              | León              | Las Palmas de Gran Canaria | Huelva       |
+| Lugo              | Lleida            | Huesca            | Madrid            |
+| Logroño           | Málaga            | Murcia            | Ourense           |
+| Oviedo            | Palencia          | Pamplona          | Palma             |
+| Pontevedra        | Salamanca         | San Sebastián     | Santa Cruz de Tenerife |
+| Santander         | Segovia           | Sevilla           | Soria             |
+| Tarragona         | Teruel            | Toledo            | Valencia          |
+| Valladolid        | Vitoria-Gasteiz   | Zamora            | Zaragoza          |
 
 📊 Variables climáticas:
 - Temperatura media (°C)
