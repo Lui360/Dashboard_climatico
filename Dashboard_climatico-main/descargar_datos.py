@@ -55,3 +55,13 @@ for city, (lat, lon) in cities.items():
 df_all = pd.concat(all_data)
 df_all.to_csv("nasa_clima_espana_1984_hoy.csv", index=False)
 print("Datos guardados en 'nasa_clima_espana_1984_hoy.csv'")
+
+
+# Rango de últimos 30 días
+end = datetime.today()
+start = end - timedelta(days=30)
+
+start_str = start.strftime("%Y%m%d")
+end_str = end.strftime("%Y%m%d")
+
+url = f"https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR, RH2M&start={start_str}&end={end_str}&format=JSON&community=AG&latitude=40.4168&longitude=-3.7038"
